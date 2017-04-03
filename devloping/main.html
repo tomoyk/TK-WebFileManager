@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- GPL LICENSE -->
+<html lang="ja">
+<head>
+	<!-- META -->
+	<title>TK FIleManager</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="" />
+	
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="cssreset-min.css">
+	<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="main.css" media="all" /> 
+
+	<!-- JavaScript -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/kickstart.js"></script>
+</head>
+<body>
+	<form action="debug.php" method="post" enctype="multipart/form-data">
+	
+		<input type="radio" name="tab" id="btn-blank" class="hide" checked>
+		<input type="radio" name="tab" id="btn-upload" class="hide">
+		<input type="radio" name="tab" id="btn-mknew" class="hide">
+		<input type="radio" name="tab" id="btn-search" class="hide">
+		<input type="radio" name="tab" id="btn-mknew" class="hide">
+		<input type="radio" name="tab" id="btn-mv-cp" class="hide">
+		<input type="radio" name="tab" id="btn-rename" class="hide">
+		<input type="radio" name="tab" id="btn-delete" class="hide">
+		<input type="submit" name="mode" id="btn-compress" class="hide" value="compress" method="post">
+		<input type="submit" name="mode" id="btn-decompress" class="hide" value="decompress" method="post">
+		<input type="hidden" name="path" value="Home/Documents/2016">
+    
+		<div id="msg">
+			<div class="msg-container">
+			
+			  <!-- BackGround Link -->
+	  	  <label for="btn-blank"></label>
+				
+				<div id="window-mknew" class="msg-body">
+					<h6><i class="fa fa-plus"></i> 新規作成</h6>
+					<div class="main">
+						<p>作成するファイル,ディレクトリの名前を入力してボタンを押下してください.</p>
+						<input type="text" name="mk-item" placeholder="ファイル名,フォルダ名" />
+						<br><br>
+						<button class="blue" name="mode" value="mk-dir">ディレクトリ作成</button>
+						<button class="green" name="mode" value="mk-file">ファイル作成</button>
+						<label for="btn-blank" class="btn-cancel"><a class="button">キャンセル</a></label>
+					</div>
+				</div>
+
+				<div id="window-mv-cp" class="msg-body">
+					<h6><i class="fa fa-plus"></i> 移動/コピー</h6>
+					<div class="main">
+						<p>1.移動,コピーするファイル,フォルダにチェックボックス<input type="checkbox" checked>を入れて選択してください.<br>
+						2.移動,コピー先を以下から選択して,ボタンを押下してください.</p>
+						<ul id="map">
+							<li><label><input type="radio" name="mv-cp-dest" value="AAA"><span><i class="fa fa-folder"></i> AAA</span></label><li>
+							<li><label><input type="radio" name="mv-cp-dest" value="BBB"><span><i class="fa fa-folder"></i> BBB</span></label>
+								<ul>
+									<li><label><input type="radio" name="mv-cp-dest" value="BBB/Apple"><span><i class="fa fa-folder"></i> Apple</span></label>
+										<ul>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Apple/111"><span><i class="fa fa-folder"></i> 111</span></label>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Apple/222"><span><i class="fa fa-folder"></i> 222</span></label>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Apple/333"><span><i class="fa fa-folder"></i> 333</span></label>
+										</ul>
+									</li>
+									<li><label><input type="radio" name="mv-cp-dest" value="BBB/Banana"><span><i class="fa fa-folder"></i> Banana</span></label>
+										<ul>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Banana Pi"><span><i class="fa fa-folder"></i> Banana Pi</span></label></li>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Banana Cake"><span><i class="fa fa-folder"></i> Banana Cake</span></label></li>
+											<li><label><input type="radio" name="mv-cp-dest" value="BBB/Juice"><span><i class="fa fa-folder"></i> Banana Juice</span></label></li>
+										</ul>
+									</li>
+									<li><label><input type="radio" name="mv-cp-dest" value="BBB/Orange"><span><i class="fa fa-folder"></i> Orange</span></label><li>
+								</ul>
+							</li>
+							<li><label><input type="radio" name="mv-cp-dest" value="CCC"><span><i class="fa fa-folder"></i> CCC</span></label><li>
+							<br>
+						</ul>
+						<button type="submit" class="blue" name="mode" value="move">移動</button>
+						<button type="submit" class="green" name="mode" value="copy">コピー</button>
+						<label for="btn-blank"><a class="button">キャンセル</a></label>
+					</div>
+				</div>
+
+				<div id="window-rename" class="msg-body">
+					<h6><i class="fa fa-pencil"></i> 名前の変更</h6>
+					<div class="main">
+						<p>1.名前を変更するファイル,フォルダを以下から選択してください.<br>
+						2.新たなファイル名,ディレクトリ名を入力して[変更]ボタンを押下してください.</p>
+						<label>変更前:</label>
+						<select name="old-name" class="full-width">
+							<option value="">次の中から選択してください</option>
+							<option value="Item1">Item1</option>
+							<option value="Item2">Item2</option>
+							<option value="Item3">Item3</option>
+							<option value="Dir1">Dir1</option>
+							<option value="Dir2">Dir2</option>
+							<option value="Dir3">Dir3</option>
+						</select>
+						<br>
+						<label>変更後:</label>
+						<input class="full-width" type="text" name="new-name">
+						<br><br>
+						<button type="submit" class="blue" name="mode" value="rename">変更</button>
+						<label for="btn-blank"><a class="button">キャンセル</a></label>
+					</div>
+				</div>
+
+				<div id="window-delete" class="msg-body">
+					<h6>削除の確認</h6>
+					<div class="main">
+  					<p>選択したファイル<span id="selectedFile"></span>を削除しますか？</p>
+	  				<button type="submit" class="red" name="mode" value="delete"><i class="fa fa-trash"></i> 削除</button>
+	  				<label for="btn-blank"><a class="button">キャンセル</a></label>
+					</div>
+				</div>
+
+        <div id="window-upload" class="msg-body">
+				  <h6><i class="fa fa-upload"></i> アップロード</h6>
+				  <div class="main">
+					  <p>ここへファイルをドラッグ・ドロップすることでアップロードすることが出来ます.</p>
+					  <input class="file" type="file" name="upload-file" multiple>
+					  <br>
+					  <button class="blue" type="submit" name="mode" value="upload">アップロード</button>
+					  <label for="btn-blank" class="btn-cancel"><a class="button">キャンセル</a></label>
+				  </div>
+			  </div>
+
+		    <div id="window-search" class="msg-body ">
+			    <h6><i class="fa fa-search"></i> 検索</h6>
+			    <div class="main">
+				    <p>検索したいファイル, ディレクトリ(フォルダ)の名前を入力してボタンを押下してください.</p>
+				    <input class="full-width" type="text" name="search-txt" placeholder="ファイル名,フォルダ名" />
+				    <br>
+				    <button class="blue" name="mode" value="search">検索</button>
+				    <label for="btn-blank" class="btn-cancel"><a class="button">キャンセル</a></label>
+			    </div>
+		    </div>
+
+			</div>
+		</div>
+
+    <div id="menu">
+			<ul>
+				<li>
+					<label for="btn-upload"><img src="icons/upload.png" width="40" height="40"><br>アップロード</label>
+				</li>
+				<li>
+					<label for="btn-mknew"><img src="icons/mknew.png" width="40" height="40"><br>新規作成</label>
+				</li>
+				<li>
+					<label for="btn-mv-cp"><img src="icons/copy.png" width="40" height="40"><br>移動/コピー</label>
+				</li>
+				<li>
+					<label for="btn-compress"><img src="icons/compress.png" width="40" height="40"><br>圧縮</label>
+				</li>
+				<li>
+					<label for="btn-decompress"><img src="icons/decompress.png" width="40" height="40"><br>解凍</label>
+				</li>
+				<li>
+					<label for="btn-rename"><img src="icons/rename.png" width="40" height="40"><br>名前の変更</label>
+				</li>
+				<li>
+					<label for="btn-delete"><img src="icons/delete.png" width="40" height="40"><br>削除</label>
+				</li>
+				<li>
+					<label for="btn-search"><img src="icons/search.png" width="40" height="40"><br>検索</label>
+				</li>
+			</ul>
+    </div>
+
+		<div id="main">
+		
+			<ul class="breadcrumbs alt1">
+				<li class="first"><a href="#">Home</a></li>
+				<li><a href="#">Documents</a></li>
+				<li><a href="#">2016</a></li>
+				<li class="last"><a href="#">abc2000.txt</a></li>
+			</ul>
+
+			<table id="file-list" class="striped sortable" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>選択</th>
+						<th>ファイル名</th>
+						<th>サイズ</th>
+						<th>更新日</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="checkbox" name="target-item[]" value="Item1"></td>
+						<td><a href="#">Item1</a></td>
+						<td>1000KB</td>
+						<td>2016/01/01</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="target-item[]" value="Item2"></td>
+						<td><a href="#">Item2</a></td>
+						<td>400KB</td>
+						<td>2016/04/01</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="target-item[]" value="Item3"></td>
+						<td><a href="#">Item3</a></td>
+						<td>1KB</td>
+						<td>2016/05/01</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="target-item[]" value="Dir1"></td>
+						<td><a href="#">Dir1</a></td>
+						<td>340KB</td>
+						<td>2016/06/01</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="file-list2">
+        <div><a href="#">
+          <img src="icons2/pdf.png">
+          <span>FileName</span>
+        </a></div>
+        <div><a href="#">
+          <img src="icons2/excel.png">
+          <span>FileName</span>
+        </a></div>
+        <div><a href="#">
+          <img src="icons2/compressed.png">
+          <span>FileName</span>
+        </a></div>
+			</div>
+
+<style>
+div#file-list2 > div {
+  display: inline-block;
+}
+div#file-list2 > div > a > span {
+  display: block;
+}
+</style>
+<script>
+var selected_list = document.getElementById("selectedFile");
+selected_list.innerHTML = "[file1, file2]";
+</script>
+
+		</div>
+	</form>
+</div>
+</body>
+</html>
