@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- GPL LICENSE -->
 <html lang="ja">
 <head>
 	<!-- META -->
@@ -30,7 +29,7 @@
 		<input type="radio" name="tab" id="btn-delete" class="hide">
 		<input type="submit" name="mode" id="btn-compress" class="hide" value="compress" method="post">
 		<input type="submit" name="mode" id="btn-decompress" class="hide" value="decompress" method="post">
-		<input type="hidden" name="path" value="Home/Documents/2016">
+		<input type="hidden" name="path" value="Home/Documents/2016/123456/">
     
 		<div id="msg">
 			<div class="msg-container">
@@ -164,7 +163,7 @@
 					<label for="btn-rename"><img src="icons/rename.png" width="40" height="40"><br>名前の変更</label>
 				</li>
 				<li>
-					<label for="btn-delete"><img src="icons/delete.png" width="40" height="40"><br>削除</label>
+					<label for="btn-delete" onClick="debug();"><img src="icons/delete.png" width="40" height="40"><br>削除</label>
 				</li>
 				<li>
 					<label for="btn-search"><img src="icons/search.png" width="40" height="40"><br>検索</label>
@@ -173,13 +172,15 @@
     </div>
 
 		<div id="main">
-		
-			<ul class="breadcrumbs alt1">
-				<li class="first"><a href="#">Home</a></li>
-				<li><a href="#">Documents</a></li>
-				<li><a href="#">2016</a></li>
-				<li class="last"><a href="#">abc2000.txt</a></li>
-			</ul>
+		  <div class="path-wrapper">
+        <ul class="breadcrumbs alt1">
+          <li class="first"><a href="#">Home</a></li>
+          <li><a href="#">Documents</a></li>
+          <li><a href="#">2016</a></li>
+          <li><a href="#">12345</a></li>
+          <li class="last"><a href="#">abc2000.txt</a></li>
+        </ul>
+      </div>
 
 			<table id="file-list" class="striped sortable" cellspacing="0" cellpadding="0">
 				<thead>
@@ -192,26 +193,26 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="checkbox" name="target-item[]" value="Item1"></td>
-						<td><a href="#">Item1</a></td>
+						<td><input type="checkbox" name="target-item" value="Item1"></td>
+						<td><a href="#" name="target-name">Item1</a></td>
 						<td>1000KB</td>
 						<td>2016/01/01</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" name="target-item[]" value="Item2"></td>
-						<td><a href="#">Item2</a></td>
+						<td><input type="checkbox" name="target-item" value="Item2"></td>
+						<td><a href="#" name="target-name">Item2</a></td>
 						<td>400KB</td>
 						<td>2016/04/01</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" name="target-item[]" value="Item3"></td>
-						<td><a href="#">Item3</a></td>
+						<td><input type="checkbox" name="target-item" value="Item3"></td>
+						<td><a href="#" name="target-name">Item3</a></td>
 						<td>1KB</td>
 						<td>2016/05/01</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" name="target-item[]" value="Dir1"></td>
-						<td><a href="#">Dir1</a></td>
+						<td><input type="checkbox" name="target-item" value="Dir1"></td>
+						<td><a href="#" name="target-name">Dir1</a></td>
 						<td>340KB</td>
 						<td>2016/06/01</td>
 					</tr>
@@ -242,10 +243,29 @@ div#file-list2 > div > a > span {
 }
 </style>
 <script>
-var selected_list = document.getElementById("selectedFile");
-selected_list.innerHTML = "[file1, file2]";
-</script>
 
+function debug() {
+
+  var chkBox = document.getElementsByName("target-item");
+  var chkName = document.getElementsByName("target-name");
+  var fileList = '';
+
+  for(var i=0;i<chkBox.length;i++) {
+
+    if( chkBox[i].checked ){
+      // console.log(i + "番目がチェックされています.");
+      console.log( chkName[i].innerText + "が選択されています.");
+      fileList += (fileList=='' ? '' : ',') + chkName[i].innerText;
+    }
+
+  }
+
+  var selected_list = document.getElementById("selectedFile");
+  selected_list.innerHTML = fileList;
+
+}
+
+</script>
 		</div>
 	</form>
 </div>

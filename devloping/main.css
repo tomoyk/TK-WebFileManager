@@ -17,31 +17,33 @@ div#container {
   background: -o-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(224,224,224,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#e0e0e0',GradientType=0 );
   background: linear-gradient(top, rgba(252,252,252,1) 0%,rgba(224,224,224,1) 100%);
+	width: 100%;
+	display: block;
+	overflow: scroll;
 }
 #menu > ul {
   margin: 0;
   border-bottom: solid 1px #ccc;
   overflow: hidden;
+  display: table;
 }
 #menu > ul > li {
-  /* display: inline-block; */
-  display: block;
   text-align: center;
   cursor: pointer;
   padding: 0;
   border-right: 2px solid #DADADA;
-  float: left;
-  /* min-width: 100px; */
+  width: auto;
+  min-width: 90px;
   min-height: 80px;
+  display: table-cell;
+  white-space: nowrap;
 }
 @media all and (max-width: 768px) {
   #menu > ul > li {
-    width: 25%;
     font-size: 14px;
   }
 }
 #menu > ul > li:hover {
-  /* background: -moz-linear-gradient(top, rgb(230, 247, 255) 0%, rgb(141, 193, 219) 100%); */
   background: rgb(230, 247, 255);
   background: -moz-linear-gradient(top, rgb(230, 247, 255) 0%, rgb(141, 193, 219) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(230, 247, 255)), color-stop(100%,rgb(141, 193, 219)));
@@ -103,7 +105,7 @@ div#container {
 	/* background: #7fbbf7; */
 	font-weight: bold;
 }
-#msg > div.msg-container > div.msg-body > div.main > ul#map span {
+#msg > .msg-container > .msg-body > .main > #map span {
 	color: #232222;
 	padding: 5px;
 	display: block;
@@ -112,16 +114,30 @@ div#container {
 }
 
 /* MAIN [ MAIN] */
-div#main {
+#main {
 	clear: both;
 	margin: 0 20px;
 }
 
+/* MAIN [ PATH ] */
+#main > .path-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+#main > .path-wrapper > ul {
+  max-width: 100%;
+  display: inline-table;
+}
+#main > .path-wrapper > ul > li {
+  display: table-cell;
+}
+
 /* MAIN [ Table ] */
-div#main > table#file-list {
+#main > table#file-list {
 	margin: 15px 0;
 }
-div#main > table#file-list > * > tr {
+#main > table#file-list > * > tr {
 	line-height: 1.5;
 }
 @media all and (max-width: 768px) {
@@ -129,7 +145,7 @@ div#main > table#file-list > * > tr {
 		line-height: 2.0;
 	}
 }
-div#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
+#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
 	width: 18px;
 	height: 18px;
 	-moz-transform: scale(1.2);
@@ -137,7 +153,7 @@ div#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
 	transform: scale(1.2);
 }
 @media all and (max-width: 768px) {
-	div#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
+	#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
 		-moz-transform: scale( 1.5 , 1.5 );
 	}
 }
@@ -192,8 +208,10 @@ div#main > table#file-list > tbody > tr > td > input[type="checkbox"] {
   border-radius: 10px 10px 0px 0px;
 }
 #msg > div.msg-container > div.msg-body > div.main {
-  display: inline-block;
-  margin: 0px 10px;
+  display: block;
+  width: auto;
+  overflow: hidden;
+  margin: 0 10px;
 }
 input#btn-mknew:checked ~ #msg,
 input#btn-mv-cp:checked ~ #msg,
