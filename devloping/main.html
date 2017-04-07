@@ -163,7 +163,7 @@
 					<label for="btn-rename"><img src="icons/rename.png" width="40" height="40"><br>名前の変更</label>
 				</li>
 				<li>
-					<label for="btn-delete" onClick="debug();"><img src="icons/delete.png" width="40" height="40"><br>削除</label>
+					<label for="btn-delete" onClick="getChkBox();"><img src="icons/delete.png" width="40" height="40"><br>削除</label>
 				</li>
 				<li>
 					<label for="btn-search"><img src="icons/search.png" width="40" height="40"><br>検索</label>
@@ -233,41 +233,85 @@
           <span>FileName</span>
         </a></div>
 			</div>
-
+		</div>
+	</form>
+</div>
 <style>
+
 div#file-list2 > div {
   display: inline-block;
 }
 div#file-list2 > div > a > span {
   display: block;
 }
+
 </style>
 <script>
+// キーが押された時に実行
+document.onkeydown = function(event) {
 
-function debug() {
+  // [ESC]が押下された時
+  if(event.keyCode==27) {
 
-  var chkBox = document.getElementsByName("target-item");
+    // DOMの取得(ウィンドウ保持用checkbox)
+    var tabChk = document.getElementsByName("tab");
+
+    //チェックボックスのチェック有無を1つずつ確認
+    for(var i=0;i<tabChk.length;i++) {
+
+      // チェックされている場合
+      if( tabChk[i].checked )
+        tabChk[i].checked = false;
+
+    }
+
+  }
+
+}
+
+
+
+// DOMの取得(チェックボック)
+var chkBox = document.getElementsByName("target-item");
+
+function resetChkBox() {
+
+  //チェックボックスのチェック有無を1つずつ確認
+  for(var i=0;i<chkBox.length;i++) {
+
+    // チェックされている場合
+    if( chkBox[i].checked )
+      chkBox[i].checked = false;
+
+  }
+
+}
+
+// チェックされたファイルの一覧(削除機能)
+function getChkBox() {
+
+  // DOMの取得, 変数の初期化
   var chkName = document.getElementsByName("target-name");
   var fileList = '';
 
+  //チェックボックスのチェック有無を1つずつ確認
   for(var i=0;i<chkBox.length;i++) {
-
+    // チェックされている場合
     if( chkBox[i].checked ){
-      // console.log(i + "番目がチェックされています.");
-      console.log( chkName[i].innerText + "が選択されています.");
+      // console.log( chkName[i].innerText + "が選択されています.");
       fileList += (fileList=='' ? '' : ',') + chkName[i].innerText;
     }
 
   }
 
+  // DOMを取得(削除ウィンドウ内のメッセージ)
   var selected_list = document.getElementById("selectedFile");
+
+  // ファイル一覧を書き込む
   selected_list.innerHTML = fileList;
 
 }
 
 </script>
-		</div>
-	</form>
-</div>
 </body>
 </html>
