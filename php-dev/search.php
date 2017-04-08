@@ -12,7 +12,8 @@ $path = getcwd();
 
 $name = "1212";
 
-$pattern = '/^[^\/]*$/';
+// 共通のチェック関数を別途で作るかも
+$pattern = '/^[^\/]+$/';
 if( !preg_match($pattern,$name) ){
 	echo "不正なファイル名です.";
 	die(); 

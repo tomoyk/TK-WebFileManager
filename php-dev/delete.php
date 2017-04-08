@@ -9,7 +9,7 @@
 delete("aaa");
 
 function delete($name){
-	$pattern = '/^[^\/]*$/';
+	$pattern = '/^[^\/]+$/';
 	if( !file_exists($name) ){
 		echo "削除するディレクトリ,ファイルが存在しません.\n<br>";
 		die();
