@@ -4,8 +4,6 @@
 2.再帰的にディレクトリは削除
 */
 
-//$name = "aaa";
-
 delete("aaa");
 
 function delete($name){
@@ -39,16 +37,30 @@ function delete($name){
 
 	}else if( is_file($name) ){
 		// echo "[dbg] file: $name を削除.\n<br>";
-		$flag = unlink($name);
-		echo ( $flag ? "ファイル[$name]を削除しました.\n<br>" : "ファイル[$name]の削除に失敗しました.\n<br>" );
+
+    if( unlink($name) ) {
+      echo "ファイル[$name]を削除しました.\n<br>";
+    } else {
+		  echo "ファイル[$name]の削除に失敗しました.\n<br>";
+    }
+
 	}
 }
 
 function delete_dir($delete_dir_name){
 	// echo "[dbg] ディレクトリ[$delete_dir_name]はファイル,ディレクトリを含みません.\n<br>";
 	// echo "[dbg] dir: $delete_dir_name を削除.\n<br>";
-	$flag = rmdir($delete_dir_name);
-	echo ( $flag ? "ディレクトリ[$delete_dir_name]を削除しました.\n<br>" : "ディレクトリ[$delete_dir_name]の削除に失敗しました.\n<br>" );
+
+  if(rmdir($delete_dir_name) ){
+    echo "ディレクトリ[$delete_dir_name]を削除しました.\n<br>";
+  } else {
+    echo "ディレクトリ[$delete_dir_name]の削除に失敗しました.\n<br>";
+  }
+ )
+}
+
+function h($str){
+  return htmlspecialchars($str, ENT_QUOTES);
 }
 
 ?>
